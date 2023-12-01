@@ -1,2 +1,1 @@
-# WA-cgpt-proy
-Wizeline Academy ChatGPT-Sprint Capstone Project
+This is my project for Wizeline Academy chat gpt
