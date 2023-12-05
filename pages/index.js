@@ -1,11 +1,10 @@
 'use client'
 import { useState } from 'react';
-// import styles from '../styles/chat.styles.css'
 import styles from '../styles/Home.module.css';
 
 const ChatPage = () => {
   const [messages, setMessages] = useState([]);
-  const [newMessage, setNewMessage] = useState('');
+  const [newUserInput, setNewUserInput] = useState('');
   const [chatIsLoading, setChatIsLoading] = useState(false);
 
   const handleChatEnter = (event) => {
@@ -18,9 +17,9 @@ const ChatPage = () => {
 
   const handleSendMessage = async () => {
 
-    if (newMessage.trim() === '' || chatIsLoading) return;
-    setMessages([...messages, { text: newMessage, sender: 'user' }]);
-    setNewMessage('');
+    if (newUserInput.trim() === '' || chatIsLoading) return;
+    setMessages([...messages, { text: newUserInput, sender: 'User' }]);
+    setNewUserInput('');
     setChatIsLoading(true);
 
     const options = {
@@ -29,7 +28,7 @@ const ChatPage = () => {
         "Accept": "application/json",
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ newMessage })
+      body: JSON.stringify({ newMessage: newUserInput })
     }
 
     //fetch url
@@ -38,7 +37,7 @@ const ChatPage = () => {
     try {
       const response = await fetch(url, options);
       const data = await response.json();
-      setMessages((prevState) => [...prevState, { text: data.content, sender: 'openai' }]);
+      setMessages((prevState) => [...prevState, { text: data.content, sender: 'Openai' }]);
       setChatIsLoading(false);
     }
     catch (error) {
@@ -48,14 +47,16 @@ const ChatPage = () => {
 
   return (
     <div className={styles.chatContainer}>
+      <div className={styles.title}>Generate acceptance criteria</div>
+      <p className={styles.description}>Generate acceptance criteria of the application using a prompt</p>
       <div className={styles.chatMessages}>
         {messages.map((message, index) => (
-          <div key={index} className={`message ${message.sender}`}>
+          <div key={index} className={`message${message.sender}`}>
             {message.text}
           </div>
         ))}
         {chatIsLoading && (
-          <div className={styles.laoder}>
+          <div className={styles.loader}>
             <div></div>
             <div></div>
             <div></div>
@@ -66,14 +67,15 @@ const ChatPage = () => {
         <div className={styles.chatPrompt}>
           <textarea
             id="user-input"
+            className={styles.userInput}
             placeholder={chatIsLoading ? "Thinking" : "Please enter your text..."}
-            value={newMessage}
-            onChange={(e) => setNewMessage(e.target.value)}
+            value={newUserInput}
+            onChange={(e) => setNewUserInput(e.target.value)}
             onKeyDown={handleChatEnter}
           ></textarea>
         </div>
       </div>
-      <div className={styles.chatInput}>
+      <div className={styles.chatControls}>
         <button
           className={styles.primaryButton}
           disabled={chatIsLoading}
