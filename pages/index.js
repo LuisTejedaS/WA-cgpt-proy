@@ -18,7 +18,7 @@ const ChatPage = () => {
   const handleSendMessage = async () => {
 
     if (newUserInput.trim() === '' || chatIsLoading) return;
-    setMessages([...messages, { text: newUserInput, sender: 'User' }]);
+    setMessages([...messages, { text: newUserInput, sender: 'user' }]);
     setNewUserInput('');
     setChatIsLoading(true);
 
@@ -51,7 +51,7 @@ const ChatPage = () => {
       <p className={styles.description}>Generate acceptance criteria of the application using a prompt</p>
       <div className={styles.chatMessages}>
         {messages.map((message, index) => (
-          <div key={index} className={`message${message.sender}`}>
+          <div key={index} className={`${styles[`message`]} ${styles[`${message.sender}`]}`}>
             {message.text}
           </div>
         ))}
