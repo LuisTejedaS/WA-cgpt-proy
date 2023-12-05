@@ -68,7 +68,7 @@ const ChatPage = () => {
           <textarea
             id="user-input"
             className={styles.userInput}
-            placeholder={chatIsLoading ? "Thinking" : "Please enter your text..."}
+            placeholder={chatIsLoading ? "Thinking" : "Please enter the description of the application..."}
             value={newUserInput}
             onChange={(e) => setNewUserInput(e.target.value)}
             onKeyDown={handleChatEnter}

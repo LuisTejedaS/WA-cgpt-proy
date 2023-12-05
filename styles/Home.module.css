@@ -50,7 +50,7 @@
 }
 .chatMessages {
   flex-grow: 1;
-  height: 48vw;
+  height: 38vw;
   padding: 10px;
   overflow-y: auto;
   border: 1px solid;
@@ -88,7 +88,7 @@
 .chatPrompt {
   display: flex;
   justify-content: space-between;
-  width: 413px; height: 148px;
+  width: 513px; height: 148px;
 }
 
 .userInput {
