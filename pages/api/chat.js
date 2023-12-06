@@ -1,4 +1,4 @@
-async function callChatAPI(newMessage) {
+async function callChatAPI(newMessage, nonFunctional) {
 
     const openAIKey = process.env.OPENAI_KEY;
 
@@ -26,13 +26,16 @@ async function callChatAPI(newMessage) {
     return data.choices[0].message.content;
 }
 
-async function mockCallChatAPI(newMessage) {
-    return 'this is a mock ' + newMessage;
+async function mockCallChatAPI(newMessage, nonFunctional) {
+
+    await new Promise(resolve => setTimeout(resolve, 3000));
+    return 'this is a mock ' + newMessage + 'non functional: ' + nonFunctional;
 }
 
 
 export default async function handler(req, res) {
     const newMessage = req.body.newMessage;
+    const nonFunctional = req.body.nonFunctional;
     let chatResponse = ''
 
     if (newMessage.trim() === '') {
@@ -40,7 +43,7 @@ export default async function handler(req, res) {
     };
 
     try {
-        chatResponse = await callChatAPI(newMessage)
+        chatResponse = await mockCallChatAPI(newMessage, nonFunctional)
     } catch (error) {
         console.log(error);
         res.status(500).send({});

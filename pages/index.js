@@ -6,6 +6,7 @@ const ChatPage = () => {
   const [messages, setMessages] = useState([]);
   const [newUserInput, setNewUserInput] = useState('');
   const [chatIsLoading, setChatIsLoading] = useState(false);
+  const [nonFunctional, setNonFunctional] = useState(false);
 
   const handleChatEnter = (event) => {
     if (event.key === "Enter") { handleSendMessage() }
@@ -28,7 +29,7 @@ const ChatPage = () => {
         "Accept": "application/json",
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ newMessage: newUserInput })
+      body: JSON.stringify({ newMessage: newUserInput, nonFunctional })
     }
 
     //fetch url
@@ -37,7 +38,7 @@ const ChatPage = () => {
     try {
       const response = await fetch(url, options);
       const data = await response.json();
-      setMessages((prevState) => [...prevState, { text: data.content, sender: 'Openai' }]);
+      setMessages((prevState) => [...prevState, { text: data.content, sender: 'openai' }]);
       setChatIsLoading(false);
     }
     catch (error) {
@@ -57,9 +58,6 @@ const ChatPage = () => {
         ))}
         {chatIsLoading && (
           <div className={styles.loader}>
-            <div></div>
-            <div></div>
-            <div></div>
           </div>
         )}
       </div>
@@ -76,8 +74,11 @@ const ChatPage = () => {
         </div>
       </div>
       <div className={styles.chatControls}>
+        <input type="checkbox" id="non-functional" name="non-functional"
+          onChange={(e) => setNonFunctional(e.target.checked)} />
+        <label className={styles.check} for="non-functional"> Generate non functional criteria</label>
         <button
-          className={styles.primaryButton}
+          className={chatIsLoading ? `${styles.primaryButton} ${styles.disabled}` : styles.primaryButton}
           disabled={chatIsLoading}
           onClick={handleSendMessage}
         >

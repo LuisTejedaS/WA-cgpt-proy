@@ -2,9 +2,6 @@
   margin: 0 0 1rem;
   line-height: 1.15;
   font-size: 3.6rem;
-}
-
-.title {
   text-align: center;
 }
 
@@ -16,11 +13,6 @@
 .description {
   line-height: 1.5;
   font-size: 1.5rem;
-}
-
-
-.logo {
-  height: 1em;
 }
 
 @media (max-width: 600px) {
@@ -41,7 +33,12 @@
   cursor: pointer;
 }
 
-/* ChatComponent.css */
+.disabled {
+  cursor: not-allowed;
+  background-color: #5d5d5d;
+
+}
+
 .chatContainer {
   display: flex;
   flex-direction: column;
@@ -72,6 +69,11 @@
   align-self: flex-end;
 }
 
+.openai {
+  background-color: rgb(174, 248, 219);
+  color: black;
+  align-self: flex-end;
+}
 
 .chatControls {
   display: flex;
@@ -80,12 +82,17 @@
 }
 
 .loader {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-  width: 95%; /* Adjust the width of the loader */
-  align-items: center;
+  width: 60px;
+  aspect-ratio: 4;
+  background: radial-gradient(circle closest-side,#000 90%,#0000) 0/calc(100%/3) 100% space;
+  clip-path: inset(0 100% 0 0);
+  animation: l1 1s steps(4) infinite;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
 }
+@keyframes l1 {to{clip-path: inset(0 -34% 0 0)}}
 
 .chatPrompt {
   display: flex;
@@ -104,4 +111,8 @@
   background-color: rgb(150, 150, 150);
   color: black;
   align-self: flex-end;
+}
+
+.check{
+  padding-top: 30px;
 }
