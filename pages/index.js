@@ -76,7 +76,7 @@ const ChatPage = () => {
       <div className={styles.chatControls}>
         <input type="checkbox" id="non-functional" name="non-functional"
           onChange={(e) => setNonFunctional(e.target.checked)} />
-        <label className={styles.check} for="non-functional"> Generate non functional criteria</label>
+        <label className={styles.check} htmlFor="non-functional"> Generate non functional criteria</label>
         <button
           className={chatIsLoading ? `${styles.primaryButton} ${styles.disabled}` : styles.primaryButton}
           disabled={chatIsLoading}
