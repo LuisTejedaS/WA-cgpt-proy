@@ -43,6 +43,7 @@ const ChatPage = () => {
     }
     catch (error) {
       console.error('Error fetching data:', error);
+      setChatIsLoading(false);
     }
   };
 
