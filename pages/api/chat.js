@@ -44,7 +44,7 @@ export default async function handler(req, res) {
     };
 
     try {
-        chatResponse = await mockCallChatAPI(newMessage, nonFunctional)
+        chatResponse = await callChatAPI(newMessage, nonFunctional)
     } catch (error) {
         console.log(error);
         res.status(500).send({});
